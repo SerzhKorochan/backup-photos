@@ -1,0 +1,8 @@
+{
+  "available_commands": [
+    "quickstart",
+    "rm-data",
+    "create-backup",
+    "help"
+  ]
+}
