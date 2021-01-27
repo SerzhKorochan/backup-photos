@@ -4,5 +4,14 @@
     "rm-data",
     "create-backup",
     "help"
+  ],
+  "available_social_networks": [
+    "Vk",
+    "Ok",
+    "Instagram"
+  ],
+  "available_remote_drives": [
+    "Google",
+    "Yandex"
   ]
 }

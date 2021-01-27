@@ -1,4 +1,5 @@
 from app.core.models.command_line_model import CommandLineModel
+import app.core.views.command_line_view as cl_view
 import json
 import os
 
@@ -15,7 +16,8 @@ class MainController:
         if self.cl_model.get_entered_arg():
             entered_arg = self.cl_model.get_entered_arg()
         else:
-            exit('Input Error!')
+            available_args = self.cl_model.get_available_args()
+            exit(cl_view.show_available_args(available_args))
 
         if entered_arg == 'quickstart':
             pass

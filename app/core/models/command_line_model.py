@@ -16,3 +16,6 @@ class CommandLineModel:
                 return entered_arg
 
         return None
+
+    def get_available_args(self):
+        return self.config['available_args']
