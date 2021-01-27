@@ -1,5 +1,5 @@
 {
-  "available_commands": [
+  "available_args": [
     "quickstart",
     "rm-data",
     "create-backup",
