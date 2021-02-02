@@ -1,4 +1,5 @@
 import json
+from os import path
 
 
 class DataModel:
@@ -9,10 +10,12 @@ class DataModel:
         self.data_layout = {
             'social_network': {
                 'name': '',
+                'token_path': '',
                 'token': ''
             },
             'remote_drive': {
                 'name': '',
+                'token_path': '',
                 'token': ''
             }
         }
@@ -25,10 +28,39 @@ class DataModel:
             selected_data = json.load(f)
             return selected_data.get(type_of_service).get(option)
 
-    def check_token(self, name_of_service, token):
-        pass
+    def check_entered_services(self):
+        if self.data_layout.get('social_network').get('name') in \
+                self.get_config_option('available_social_networks') \
+                and self.data_layout.get('remote_drive').get('name') in \
+                self.get_config_option('available_remote_drives'):
+            return True
+        return False
+
+    def check_tokens_paths(self):
+        if path.exists(self.data_layout.get('social_network').get('token_path')) and \
+                path.exists(self.data_layout.get('remote_drive').get('token_path')):
+            return True
+        return False
+
+    def read_tokens(self):
+        with open(self.data_layout.get('social_network').get('token_path'), 'r', encoding='utf-8') as f:
+            self.data_layout['social_network']['token'] = f.readline()
+
+        with open(self.data_layout.get('remote_drive').get('token_path'), 'r', encoding='utf-8') as f:
+            self.data_layout['remote_drive']['token'] = f.readline()
 
     def save_selected_options(self):
         with open(self.PATH_TO_SELECTED_DATA, 'w', encoding='utf-8') as f:
             data = self.data_layout
             json.dump(data, f)
+
+    def remove_data(self):
+        with open(self.PATH_TO_SELECTED_DATA, 'w', encoding='utf-8') as f:
+            json.dump('', f)
+
+    def is_data_empty(self):
+        with open(self.PATH_TO_SELECTED_DATA, 'r', encoding='utf-8') as f:
+            if json.load(f):
+                return False
+        return True
+
