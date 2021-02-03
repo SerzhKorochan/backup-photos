@@ -19,3 +19,6 @@ class CommandLineModel:
 
     def get_available_args(self):
         return self.config['available_args']
+
+    def get_help_message(self):
+        return self.config['help_message']

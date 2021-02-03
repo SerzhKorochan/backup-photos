@@ -70,4 +70,5 @@ class MainController:
                 exit(data_view.data_is_empty())
 
         elif entered_arg == 'help':
-            pass
+            help_message = self.cl_model.get_help_message()
+            exit(cl_view.show_help(help_message))
