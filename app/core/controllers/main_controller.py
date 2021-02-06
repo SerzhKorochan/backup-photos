@@ -1,5 +1,6 @@
 from app.core.models.command_line_model import CommandLineModel
 from app.core.models.data_model import DataModel
+from app.vk_api.controllers.vk_api_controller import VkApiController
 import app.core.views.command_line_view as cl_view
 import app.core.views.data_view as data_view
 import json
@@ -27,6 +28,10 @@ class MainController:
             available_sn = self.data_model.get_config_option('available_social_networks')
             sn_name = input(data_view.social_network_input(available_sn)).lower().title()
             self.data_model.data_layout['social_network']['name'] = sn_name
+
+            # User Id -- Input
+            user_id = input(data_view.user_id_input())
+            self.data_model.data_layout['social_network']['user_id'] = user_id
 
             # Remote Drive -- Input
             available_drives = self.data_model.get_config_option('available_remote_drives')
@@ -68,6 +73,18 @@ class MainController:
 
             if self.data_model.is_data_empty():
                 exit(data_view.data_is_empty())
+
+            social_network_data = self.data_model.get_selected_service('social_network')
+
+            if social_network_data['name'] == 'Vk':
+                vk_api_controller = VkApiController(social_network_data)
+                vk_api_controller.get_photos()
+
+            elif social_network_data['name'] == 'Ok':
+                pass
+
+            elif social_network_data['name'] == 'Instagram':
+                pass
 
         elif entered_arg == 'help':
             help_message = self.cl_model.get_help_message()
