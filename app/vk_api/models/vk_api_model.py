@@ -31,6 +31,55 @@ class VkApiModel:
             return True
         return False
 
+    def format_uid(self, uid):
+        api_method = 'utils.resolveScreenName'
+        params = {
+            'screen_name': uid
+        }
+
+        response = requests.get(self.url + api_method, params={**self.params, **params}).json()['response']
+
+        if response:
+            return int(response['object_id'])
+        return int(uid)
+
     def get_photos(self, uid, album_id='profile'):
-        pass
-    #TODO this method
+        api_method = 'photos.get'
+        params = {
+            'owner_id': uid,
+            'album_id': album_id,
+            'photo_sizes': 1,
+            'extended': 1
+        }
+
+        response = requests.get(self.url + api_method, params={**self.params, **params})
+
+        return response.json()['response']
+
+    def __get_max_photo_size(self, sizes: list):
+        max_size = sizes[0].get('width') * sizes[0].get('height')
+        max_index = 0
+
+        for i in range(1, len(sizes)):
+
+            if max_size < (sizes[i].get('width') * sizes[i].get('height')):
+                max_size = sizes[i].get('width') * sizes[i].get('height')
+                max_index = i
+
+        return sizes[max_index], max_size
+
+    def get_the_biggest_photos(self, photos: dict, quantity=5):
+        count = photos.get('count')
+        items = photos.get('items')
+
+        for item in items:
+            item['max_sizes'], item['max_size'] = self.__get_max_photo_size(item['sizes'])
+
+        items = sorted(items, key= lambda k: k['max_size'], reverse=True)
+
+        if 0 < count <= quantity:
+            return items
+        return items[0:quantity]
+
+
+
