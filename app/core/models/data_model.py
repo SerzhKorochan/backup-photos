@@ -11,8 +11,7 @@ class DataModel:
             'social_network': {
                 'name': '',
                 'token_path': '',
-                'token': '',
-                'user_id': ''
+                'token': ''
             },
             'remote_drive': {
                 'name': '',

@@ -29,10 +29,6 @@ class MainController:
             sn_name = input(data_view.social_network_input(available_sn)).lower().title()
             self.data_model.data_layout['social_network']['name'] = sn_name
 
-            # User Id -- Input
-            user_id = input(data_view.user_id_input())
-            self.data_model.data_layout['social_network']['user_id'] = user_id
-
             # Remote Drive -- Input
             available_drives = self.data_model.get_config_option('available_remote_drives')
             rm_drive_name = input(data_view.remote_drive_input(available_drives)).lower().title()

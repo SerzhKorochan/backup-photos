@@ -6,10 +6,6 @@ def remote_drive_input(available_drives: list):
     return f"Please enter name of the remote drive for backup [{', '.join(available_drives)}]: "
 
 
-def user_id_input():
-    return "Please enter user ID whose photos will be saved: "
-
-
 def token_path_input(selected_system: str):
     return f"Enter or paste path to '{selected_system}' token file: "
 

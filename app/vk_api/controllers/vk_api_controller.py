@@ -10,8 +10,9 @@ class VkApiController:
         if not self.api_model.is_correct_token():
             exit(api_view.incorrect_token())
 
-    def get_photos(self, name_of_album=None):
-        uid = self.sn_data['user_id']
+    def get_photos(self):
+        uid = input(api_view.user_id_input())
+        quantity = int(input(api_view.quantity_input()))
 
         if not self.api_model.is_user_exist(uid):
             exit(api_view.user_does_not_exist(uid))
@@ -19,4 +20,6 @@ class VkApiController:
         uid = self.api_model.format_uid(uid)
 
         photos = self.api_model.get_photos(uid)
-        the_biggest_photos = self.api_model.get_the_biggest_photos(photos, 5)
+        the_biggest_photos = self.api_model.get_the_biggest_photos(photos, quantity)
+
+        return the_biggest_photos
