@@ -1,6 +1,7 @@
 from app.core.models.command_line_model import CommandLineModel
 from app.core.models.data_model import DataModel
 from app.vk_api.controllers.vk_api_controller import VkApiController
+from app.yandex_drive_api.controllers.yandex_drive_api_controller import YandexDriveApiController
 import app.core.views.command_line_view as cl_view
 import app.core.views.data_view as data_view
 import json
@@ -74,13 +75,14 @@ class MainController:
 
             if social_network_data['name'] == 'Vk':
                 vk_api_controller = VkApiController(social_network_data)
-                vk_api_controller.get_photos()
+                vk_photos = vk_api_controller.get_photos()
 
-            elif social_network_data['name'] == 'Ok':
-                pass
+            remote_drive_data = self.data_model.get_selected_service('remote_drive')
 
-            elif social_network_data['name'] == 'Instagram':
-                pass
+            if remote_drive_data['name'] == 'Yandex':
+                yandex_drive_controller = YandexDriveApiController(remote_drive_data)
+                yandex_drive_controller.upload_files_by_url('12345678')
+
 
         elif entered_arg == 'help':
             help_message = self.cl_model.get_help_message()
