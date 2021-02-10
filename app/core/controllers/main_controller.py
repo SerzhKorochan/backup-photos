@@ -1,5 +1,6 @@
 from app.core.models.command_line_model import CommandLineModel
 from app.core.models.data_model import DataModel
+from app.vk_api.helpers.parser import Parser
 from app.vk_api.controllers.vk_api_controller import VkApiController
 from app.yandex_drive_api.controllers.yandex_drive_api_controller import YandexDriveApiController
 import app.core.views.command_line_view as cl_view
@@ -16,6 +17,10 @@ class MainController:
                 self.config = json.load(f)
             self.cl_model = CommandLineModel(self.config)
             self.data_model = DataModel(self.config)
+            self.upload_data = {
+                'uid': '',
+                'photos': []
+            }
 
     def run(self):
         if self.cl_model.get_entered_arg():
@@ -75,14 +80,16 @@ class MainController:
 
             if social_network_data['name'] == 'Vk':
                 vk_api_controller = VkApiController(social_network_data)
-                vk_photos = vk_api_controller.get_photos()
+                self.upload_data['photos'] = vk_api_controller.get_photos()
+                self.upload_data['uid'] = vk_api_controller.uid
 
             remote_drive_data = self.data_model.get_selected_service('remote_drive')
 
             if remote_drive_data['name'] == 'Yandex':
                 yandex_drive_controller = YandexDriveApiController(remote_drive_data)
-                yandex_drive_controller.upload_files_by_url('12345678')
+                upload_photo_data = Parser.parse_photos_data_to_upload(self.upload_data['photos'])
 
+                yandex_drive_controller.upload_files_by_url(self.upload_data['uid'], upload_photo_data)
 
         elif entered_arg == 'help':
             help_message = self.cl_model.get_help_message()

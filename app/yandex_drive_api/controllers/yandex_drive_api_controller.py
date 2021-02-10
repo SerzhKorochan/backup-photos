@@ -7,7 +7,7 @@ class YandexDriveApiController:
         self.rm_drive_data = rm_drive_data
         self.ya_drive_model = YandexDriveApiModel(rm_drive_data['token'])
 
-    def upload_files_by_url(self, dir_name):
+    def upload_files_by_url(self, dir_name, files: list):
         # Check is base dir for backups exist
         if not self.ya_drive_model.is_resource_exist(self.ya_drive_model.BASE_DIR_FOR_BACKUP):
             self.ya_drive_model.create_folder(self.ya_drive_model.BASE_DIR_FOR_BACKUP)
@@ -19,4 +19,5 @@ class YandexDriveApiController:
         if not self.ya_drive_model.create_folder(current_backup_dir):
             exit(ya_drive_views.folder_was_not_created())
 
-        #upload file by url
+        for file in files:
+            self.ya_drive_model.upload_file_by_url(current_backup_dir, file.get('likes_count'), file.get('url'))
