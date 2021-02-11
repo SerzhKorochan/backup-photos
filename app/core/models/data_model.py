@@ -55,7 +55,7 @@ class DataModel:
     def save_selected_options(self):
         with open(self.PATH_TO_SELECTED_DATA, 'w', encoding='utf-8') as f:
             data = self.data_layout
-            json.dump(data, f)
+            json.dump(data, f, indent=2)
 
     def remove_data(self):
         with open(self.PATH_TO_SELECTED_DATA, 'w', encoding='utf-8') as f:

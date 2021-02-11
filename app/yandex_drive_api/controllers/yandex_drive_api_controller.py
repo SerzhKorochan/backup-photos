@@ -6,6 +6,7 @@ class YandexDriveApiController:
     def __init__(self, rm_drive_data: dict):
         self.rm_drive_data = rm_drive_data
         self.ya_drive_model = YandexDriveApiModel(rm_drive_data['token'])
+        self.uploaded_files_info = []
 
         if not self.ya_drive_model.is_token_correct():
             exit(ya_drive_views.incorrect_token())
@@ -25,5 +26,9 @@ class YandexDriveApiController:
         for file in files:
             if self.ya_drive_model.upload_file_by_url(current_upload_dir, file.get('name'), file.get('url')):
                 print(ya_drive_views.file_was_successfully_uploaded(file.get('name')))
+                self.uploaded_files_info.append(file)
+
             else:
                 print(ya_drive_views.file_was_not_uploaded(file.get('name')))
+
+        self.ya_drive_model.save_uploaded_files_info(self.uploaded_files_info, ['name', 'size'])

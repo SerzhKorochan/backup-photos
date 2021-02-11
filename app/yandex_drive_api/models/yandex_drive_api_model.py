@@ -1,9 +1,12 @@
 import requests
 import datetime
+import os
+import json
 
 
 class YandexDriveApiModel:
     BASE_DIR_FOR_UPLOAD = 'Backups'
+    PATH_TO_SAVE_LOGS = 'logs'
 
     def __init__(self, TOKEN):
         self.TOKEN = TOKEN
@@ -56,6 +59,23 @@ class YandexDriveApiModel:
         if response.status_code == 202:
             return True
         return False
+
+    def save_uploaded_files_info(self, files: list, fields_to_save: list):
+        uploaded_data = []
+
+        for file in files:
+            required_file_info = {}
+
+            for field in fields_to_save:
+                required_file_info[field] = file.get(field)
+
+            uploaded_data.append(required_file_info)
+
+        log_name = 'backup__' + self.get_current_datetime() + '.json'
+        log_path = os.path.join(self.PATH_TO_SAVE_LOGS, log_name)
+
+        with open(log_path, 'w', encoding='utf-8') as f:
+            json.dump(uploaded_data, f, indent=2)
 
     @staticmethod
     def get_current_datetime():
