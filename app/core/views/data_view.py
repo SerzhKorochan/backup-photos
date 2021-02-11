@@ -33,5 +33,3 @@ def data_is_empty():
 def data_is_not_empty():
     return "Data is not empty. Use 'python main.py rm-data' and try again."
 
-
-

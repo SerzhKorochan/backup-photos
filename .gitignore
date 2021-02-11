@@ -131,3 +131,4 @@ dmypy.json
 # own
 conf/selected_data.json
 conf/paths.txt
+logs/

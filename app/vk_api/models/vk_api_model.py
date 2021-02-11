@@ -79,11 +79,8 @@ class VkApiModel:
         for item in items:
             item['max_sizes'], item['max_size'] = self.__get_max_photo_size(item['sizes'])
 
-        items = sorted(items, key= lambda k: k['max_size'], reverse=True)
+        items = sorted(items, key=lambda k: k['max_size'], reverse=True)
 
         if 0 < count <= quantity:
             return items
         return items[0:quantity]
-
-
-

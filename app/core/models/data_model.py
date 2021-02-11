@@ -66,4 +66,3 @@ class DataModel:
             if json.load(f):
                 return False
         return True
-
