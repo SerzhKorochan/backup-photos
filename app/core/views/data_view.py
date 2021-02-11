@@ -27,6 +27,11 @@ def successfully_removed():
 
 
 def data_is_empty():
-    return "You didn't enter the data. Use 'quickstart' and follow the instructions."
+    return "You didn't enter the data. Use 'python main.py quickstart' and follow the instructions."
+
+
+def data_is_not_empty():
+    return "Data is not empty. Use 'python main.py rm-data' and try again."
+
 
 

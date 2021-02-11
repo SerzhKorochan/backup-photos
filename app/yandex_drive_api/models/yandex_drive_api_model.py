@@ -3,13 +3,22 @@ import datetime
 
 
 class YandexDriveApiModel:
-    BASE_DIR_FOR_BACKUP = 'Backups'
+    BASE_DIR_FOR_UPLOAD = 'Backups'
 
     def __init__(self, TOKEN):
         self.TOKEN = TOKEN
         self.HEADERS = {
             'Authorization': f'OAuth {self.TOKEN}'
         }
+
+    def is_token_correct(self):
+        url = 'https://cloud-api.yandex.net/v1/disk'
+
+        response = requests.get(url, headers=self.HEADERS)
+
+        if response.status_code == 200:
+            return True
+        return False
 
     def is_resource_exist(self, path):
         url = 'https://cloud-api.yandex.net/v1/disk/resources'

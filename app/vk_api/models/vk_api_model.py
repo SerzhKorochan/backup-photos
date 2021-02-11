@@ -66,6 +66,10 @@ class VkApiModel:
                 max_size = sizes[i].get('width') * sizes[i].get('height')
                 max_index = i
 
+        if max_size == 0:
+            index_of_max_quality = -1
+            max_index = index_of_max_quality
+
         return sizes[max_index], max_size
 
     def get_the_biggest_photos(self, photos: dict, quantity=5):

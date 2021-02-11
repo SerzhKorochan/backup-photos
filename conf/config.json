@@ -6,13 +6,10 @@
     "help"
   ],
   "available_social_networks": [
-    "Vk",
-    "Ok",
-    "Instagram"
+    "Vk"
   ],
   "available_remote_drives": [
-    "Google",
     "Yandex"
   ],
-  "help_message": "This program helps you to create backup your photos to remote drive. \n--To create backup you should follow next steps: \n\t1.Run 'python main.py quickstart' and follow the instructions. \n\t2.Run 'python main.py create-backup' and follow the instructions. \n--You also can remove all data has written use 'python main.py rm-data'. \n \nVersion: 1.0 \nContacts: serzhkorochan@gmail.com"
+  "help_message": "This program helps you to create backup your photos from social network to remote drive. \n--To create backup you should follow next steps: \n\t1.Run 'python main.py quickstart' and follow the instructions. \n\t2.Run 'python main.py create-backup' and follow the instructions. \n--You also can remove all data has written use 'python main.py rm-data'. \n \nVersion: 1.0 \nContacts: serzhkorochan@gmail.com"
 }
