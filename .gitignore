@@ -127,3 +127,8 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# own
+conf/selected_data.json
+conf/paths.txt
+logs/
